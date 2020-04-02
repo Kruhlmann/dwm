@@ -26,9 +26,28 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	/* class            instance    title       tags mask     isfloating   monitor */
+
+    /* class */
+	{ "Gimp",           NULL,       NULL,       0,            1,           -1 },
+	{ "(?i)virtualbox", NULL,       NULL,       0,            1,           -1 },
+	{ "Caprine",        NULL,       NULL,       0,            1,           -1 },
+	{ "stacer",         NULL,       NULL,       0,            1,           -1 },
+	{ "blueberry.py",   NULL,       NULL,       0,            1,           -1 },
+
+    /* instance */
+	{ NULL,     "floatme",      NULL,           0,            1,           -1 },
+
+    /* title */
+	{ NULL,             NULL,      "alsamixer",                       0,    1,    -1 },
+	{ NULL,             NULL,      "Microsoft Teams Notification",    0,    1,    -1 },
+
+    /* tags */
+	{ "discord",        NULL,       NULL,       3,            0,           -1 },
+	{ "Mainwindow.py",  NULL,       NULL,       4,            0,           -1 },
+	{ "TeamViewer",     NULL,       NULL,       9,            0,           -1 },
+	{ "ProtonMail Bridge",NULL,     NULL,       9,            0,           -1 },
+	{ "ckb-next",       NULL,       NULL,       9,            0,           -1 },
 };
 
 /* layout(s) */
@@ -39,8 +58,10 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
-	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
+	{ "|M|",      centeredmaster },
+	{ ">M>",      centeredfloatingmaster },
+	{ "><>",      NULL },    /* no layout function means floating behavior */
 };
 
 /* key definitions */
@@ -57,34 +78,57 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
+static const char *termcmd[]  = { "termite", NULL };
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "st", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-    { MODKEY,                       XK_b,      togglebar,      {0} },
+    /* spawn */
+	{ MODKEY,                       XK_d,      spawn,          SHCMD("$HOME/.scripts/dmenu_apps") },
+	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+    { MODKEY,			            XK_w,	   spawn,		   SHCMD("$BROWSER") },
+	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+    { MODKEY|ShiftMask,	            XK_x,      spawn,		   SHCMD("betterlockscreen -l") },
+    { MODKEY,	                    XK_x,      spawn,		   SHCMD("rofi -show ssh") },
+    { MODKEY|ShiftMask,	            XK_s,      spawn,		   SHCMD("maim -sl -c 0.2,0.4,1.0,0.7 -b 0 | xclip -selection clipboard -t image/png") },
+    { MODKEY,	                    XK_u,      spawn,		   SHCMD("termite --name floatme -e fzmp") },
+    { MODKEY,	                    XK_e,      spawn,		   SHCMD("termite --name floatme -e ranger") },
+    { MODKEY,	                    XK_n,      spawn,		   SHCMD("termite --name floatme -e ncmpcpp") },
+    { MODKEY,	                    XK_m,      spawn,		   SHCMD("termite --name floatme -e neomutt") },
+    { MODKEY,	                    XK_a,      spawn,		   SHCMD("termite --name floatme -e calcurse") },
+    { MODKEY|ShiftMask,	            XK_v,      spawn,		   SHCMD("$HOME/.scripts/cbp") },
+    { MODKEY|ShiftMask,	            XK_period, spawn,		   SHCMD("mpc next") },
+    { MODKEY|ShiftMask,	            XK_comma,  spawn,		   SHCMD("mpc prev") },
+    { MODKEY,	                    XK_space,  spawn,		   SHCMD("mpc toggle") },
+
+    /* window manipulation */
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_Return, zoom,           {0} },
-	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
+	{ MODKEY,                       XK_q,      killclient,     {0} },
+	{ MODKEY,                       XK_f,      togglefullscr,  {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+
+    /* layouts */
+	/* { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} }, */
+	/* { MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} }, */
+	/* { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} }, */
+	/* { MODKEY,                       XK_space,  setlayout,      {0} }, */
+
+    /* { MODKEY,                       XK_b,      togglebar,      {0} }, */
+	/* { MODKEY,                       XK_Return, zoom,           {0} }, */
+	/* { MODKEY,                       XK_Tab,    view,           {0} }, */
+	/* { MODKEY,                       XK_0,      view,           {.ui = ~0 } }, */
+	/* { MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } }, */
+	/* { MODKEY,                       XK_comma,  focusmon,       {.i = -1 } }, */
+	/* { MODKEY,                       XK_period, focusmon,       {.i = +1 } }, */
+	/* { MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } }, */
+	/* { MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } }, */
+
+    /* tags */
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -94,7 +138,6 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 };
 
 /* button definitions */
