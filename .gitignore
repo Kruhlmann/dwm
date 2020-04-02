@@ -37,6 +37,9 @@
 *.hex
 dwm
 
+# Patch originals
+*.orig
+
 # Debug files
 *.dSYM/
 *.su
