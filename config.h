@@ -92,7 +92,7 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static Key keys[] = {
 	/* modifier                     key        function        argument */
     /* spawn */
-	{ MODKEY,                       XK_d,      spawn,          SHCMD("$HOME/.scripts/dmenu_apps") },
+	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd }},
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
     { MODKEY,			            XK_w,	   spawn,		   SHCMD("$BROWSER") },
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
@@ -105,8 +105,8 @@ static Key keys[] = {
     { MODKEY,	                    XK_m,      spawn,		   SHCMD("termite --name floatme -e neomutt") },
     { MODKEY,	                    XK_a,      spawn,		   SHCMD("termite --name floatme -e calcurse") },
     { MODKEY|ShiftMask,	            XK_v,      spawn,		   SHCMD("$HOME/.scripts/cbp") },
-    { MODKEY|ShiftMask,	            XK_period, spawn,		   SHCMD("mpc next") },
-    { MODKEY|ShiftMask,	            XK_comma,  spawn,		   SHCMD("mpc prev") },
+    { MODKEY,	                    XK_period, spawn,		   SHCMD("mpc next") },
+    { MODKEY,	                    XK_comma,  spawn,		   SHCMD("mpc prev") },
     { MODKEY,	                    XK_space,  spawn,		   SHCMD("mpc toggle") },
 
     /* window manipulation */
