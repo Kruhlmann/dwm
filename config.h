@@ -26,28 +26,33 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class            instance    title       tags mask     isfloating   monitor */
+	/* class            instance    title       tags mask     isfloating, noswallow monitor */
 
     /* class */
-	{ "Gimp",           NULL,       NULL,       0,            1,           -1 },
-	{ "(?i)virtualbox", NULL,       NULL,       0,            1,           -1 },
-	{ "Caprine",        NULL,       NULL,       0,            1,           -1 },
-	{ "stacer",         NULL,       NULL,       0,            1,           -1 },
-	{ "blueberry.py",   NULL,       NULL,       0,            1,           -1 },
+	{ "Gimp",           NULL,       NULL,       0,            1,          0,        -1 },
+	{ "(?i)virtualbox", NULL,       NULL,       0,            1,          0,        -1 },
+	{ "Caprine",        NULL,       NULL,       0,            1,          0,        -1 },
+	{ "stacer",         NULL,       NULL,       0,            1,          0,        -1 },
+    { "blueberry.py",   NULL,       NULL,       0,            1,          0,        -1 },
 
     /* instance */
-	{ NULL,     "floatme",      NULL,           0,            1,           -1 },
+	{ NULL,     "floatme",      NULL,           0,            1,          0,        -1 },
 
     /* title */
-	{ NULL,             NULL,      "alsamixer",                       0,    1,    -1 },
-	{ NULL,             NULL,      "Microsoft Teams Notification",    0,    1,    -1 },
+	{ NULL,             NULL,      "alsamixer",                       0,    1,   0, -1 },
+	{ NULL,             NULL,      "Microsoft Teams Notification",    0,    1,   0, -1 },
 
     /* tags */
-	{ "discord",        NULL,       NULL,       3,            0,           -1 },
-	{ "Mainwindow.py",  NULL,       NULL,       4,            0,           -1 },
-	{ "TeamViewer",     NULL,       NULL,       9,            0,           -1 },
-	{ "ProtonMail Bridge",NULL,     NULL,       9,            0,           -1 },
-	{ "ckb-next",       NULL,       NULL,       9,            0,           -1 },
+	{ "discord",        NULL,       NULL,       3,            0,           0,       -1 },
+	{ "Mainwindow.py",  NULL,       NULL,       4,            0,           0,       -1 },
+	{ "TeamViewer",     NULL,       NULL,       9,            0,           0,       -1 },
+	{ "ProtonMail Bridge",NULL,     NULL,       9,            0,           0,       -1 },
+	{ "ckb-next",       NULL,       NULL,       9,            0,           0,       -1 },
+
+    /* swallow */
+	{ "termite",       NULL,        NULL,       9,            0,           1,       -1 },
+	{ "kitty",         NULL,        NULL,       9,            0,           1,       -1 },
+	{ "st",            NULL,        NULL,       9,            0,           1,       -1 },
 };
 
 /* layout(s) */

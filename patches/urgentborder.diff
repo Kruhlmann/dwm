@@ -1,0 +1,13 @@
+diff --git a/dwm.c b/dwm.c
+index 4465af1..6610199 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -1233,6 +1233,8 @@ propertynotify(XEvent *e)
+ 		case XA_WM_HINTS:
+ 			updatewmhints(c);
+ 			drawbars();
++			if (c->isurgent)
++				XSetWindowBorder(dpy, c->win, scheme[SchemeSel][ColFg].pixel);
+ 			break;
+ 		}
+ 		if (ev->atom == XA_WM_NAME || ev->atom == netatom[NetWMName]) {
