@@ -37,8 +37,9 @@
 *.hex
 dwm
 
-# Patch originals
+# Patch artifacts 
 *.orig
+*.rej
 
 # Debug files
 *.dSYM/
