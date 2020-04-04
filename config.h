@@ -20,7 +20,8 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "爵 Web", " Vim", "ﭮ Discord", " SSH", " Bitwarden", " Docs", " Games", "8: Desktop", " Settings" };
+static const char *tagsalt[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -137,6 +138,8 @@ static Key keys[] = {
 	/* { MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } }, */
 
     /* tags */
+
+	{ MODKEY,                       XK_b,      togglealttag,   {0} },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
