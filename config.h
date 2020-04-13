@@ -93,9 +93,9 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static Key keys[] = {
 	/* modifier                     key        function        argument */
     /* spawn */
-	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd }},
+	{ MODKEY,                       XK_d,      spawn,          SHCMD("rofi -modi drun -show drun") },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-    { MODKEY,			            XK_w,	   spawn,		   SHCMD("$BROWSER") },
+    { MODKEY,			            XK_w,	   spawn,		   SHCMD("qutebrowser") },
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
     { MODKEY|ShiftMask,	            XK_x,      spawn,		   SHCMD("betterlockscreen -l") },
     { MODKEY,	                    XK_x,      spawn,		   SHCMD("rofi -show ssh") },
