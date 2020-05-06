@@ -1,0 +1,17 @@
+pkgbase = dwm-kruhlmann-git
+	pkgdesc = Andreas Kruhlmann's DWM fork with an assortment of patches applied
+	pkgver = 6.2.r1706.b2e4bd2
+	pkgrel = 1
+	url = https://github.com/Kruhlmann/dwm
+	arch = x86_64
+	arch = i686
+	license = MIT
+	makedepends = make
+	makedepends = git
+	provides = dwm
+	conflicts = dwm
+	source = git+https://github.com/Kruhlmann/dwm
+	md5sums = SKIP
+
+pkgname = dwm-kruhlmann-git
+
