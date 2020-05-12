@@ -99,7 +99,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
     { MODKEY|ShiftMask,	            XK_x,      spawn,		   SHCMD("betterlockscreen -l") },
     { MODKEY,	                    XK_x,      spawn,		   SHCMD("rofi -show ssh") },
-    { MODKEY|ShiftMask,	            XK_s,      spawn,		   SHCMD("maim -sl -c 0.2,0.4,1.0,0.7 -b 0 | xclip -selection clipboard -t image/png") },
+    { MODKEY|ShiftMask,	            XK_s,      spawn,		   SHCMD("maim -sl -u -c 0.2,0.4,1.0,0.7 -b 0 | xclip -selection clipboard -t image/png") },
     { MODKEY,	                    XK_u,      spawn,		   SHCMD("termite --name floatme -e fzmp") },
     { MODKEY,	                    XK_g,      spawn,		   SHCMD("termite --name floatme -e lazygit") },
     { MODKEY,	                    XK_e,      spawn,		   SHCMD("termite --name floatme -e ranger") },
